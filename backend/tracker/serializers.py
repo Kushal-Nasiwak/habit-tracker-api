@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from .models import UserProfile,Habit,Task,FocusSession,DailyLog
+from .models import UserProfile,Habit,Task,FocusSession,DailyLog,HabitLog
 
 # User Serializer (to show basic user info)
 class UserSerializer(serializers.ModelSerializer):
@@ -42,3 +42,11 @@ class DailyLogSerializer(serializers.ModelSerializer):
     class Meta:
         model = DailyLog
         fields = ['id', 'user', 'date', 'note', 'total_focus_minutes']
+        
+        
+# Habit Log Serilazer 
+class HabitLogSerilazer(serializers.ModelSerializer):
+    class Meta:
+        model = HabitLog
+        fields = ['id', 'user', 'habit', 'date', 'completed']
+        read_only_fields = ['user','date']

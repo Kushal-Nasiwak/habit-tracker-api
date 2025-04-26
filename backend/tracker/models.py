@@ -50,3 +50,15 @@ class DailyLog(models.Model):
     def __str__(self):
         return f"{self.user.username} - {self.date}"
     
+
+class HabitLog(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    habit = models.ForeignKey(Habit,on_delete=models.CASCADE)
+    date = models.DateField(auto_now_add=True)
+    completed = models.BooleanField(default=False)
+    
+    class Meta:
+        unique_together = ['user', 'habit', 'date']  # ✅ Prevent duplicate check-ins
+        
+    def __str__(self):
+        return f"{self.habit.name} - {self.date} - {'✅' if self.completed else '❌'}"
